@@ -1,9 +1,17 @@
-import React from 'react'
+// src/components/Navbar.tsx
+import { Link } from "react-router-dom";
+import MaxWidthWrapper from "./MaxWidthWrapper";
 
 const Navbar = () => {
   return (
-    <div className='text-xl font-xl'>Navbar</div>
-  )
-}
+    <nav className="p-4 shadow flex justify-between items-center bg-white">
+      <MaxWidthWrapper>
+        <Link to="/" className="text-xl font-bold text-blue-600">
+          DEV.to Blog
+        </Link>
+      </MaxWidthWrapper>
+    </nav>
+  );
+};
 
-export default Navbar
+export default Navbar;
