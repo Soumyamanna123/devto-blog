@@ -19,7 +19,7 @@ A responsive blog web application that fetches and displays articles from the [D
 1. **Clone the repository**
 
    ```bash
-   git clone https://github.com/your-username/devto-blog-clone.git](https://github.com/Soumyamanna123/devto-blog.git
+   git clone https://github.com/Soumyamanna123/devto-blog.git
    cd devto-blog
 
 
