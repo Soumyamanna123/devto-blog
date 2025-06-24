@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { fetchMostViewedPosts } from "../lib/devto";
 import type { Post } from "../types/post";
 
-const useMostPopularPost = () => {
+export const useMostPopularPost = () => {
   const [post, setPost] = useState<Post | null>(null);
   const [loading, setLoading] = useState(true);
 

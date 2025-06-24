@@ -1,12 +1,11 @@
+// src/pages/Home.tsx
+import Feeds from "../components/Feed";
 import MaxWidthWrapper from "../components/MaxWidthWrapper";
 import MostPopular from "../components/MostPopular";
 import MostRecentPost from "../components/MostRecentPost";
-import { PostCard } from "../components/PostCard";
-import { usePosts } from "../hooks/usePosts";
 
-// src/pages/Home.tsx
+
 const Home = () => {
-  const { posts, loading } = usePosts(650);
   return (
     <MaxWidthWrapper>
       <div className="py-20">
@@ -19,16 +18,7 @@ const Home = () => {
           </div>
         </div>
 
-        <p>all of the post</p>
-        {loading ? (
-          <p className="text-center">Loading posts...</p>
-        ) : (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-            {posts.map((post) => (
-              <PostCard key={post.id} {...post} />
-            ))}
-          </div>
-        )}
+        <Feeds />
       </div>
     </MaxWidthWrapper>
   );

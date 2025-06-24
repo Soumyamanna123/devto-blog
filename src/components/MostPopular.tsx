@@ -16,7 +16,7 @@ const MostPopular = () => {
   return (
     <div className="my-10">
       <h2 className="text-3xl font-bold mb-4">Most Popular Post</h2>
-      <div className="border rounded-xl h-64">
+      <div className="border rounded-xl ">
         <img
           src={
             cover_image || "https://via.placeholder.com/800x400?text=No+Image"
