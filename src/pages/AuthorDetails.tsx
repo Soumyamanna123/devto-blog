@@ -7,27 +7,25 @@ import {
   GITHUB_URL,
   TWITTER_URL,
 } from "../lib/devto";
-import type { Post } from "../types/post";
+import type { AuthorProfile, Post } from "../types/post";
 import { PostCard } from "../components/PostCard";
 import { AuthorProfileSkeleton } from "../components/AuthorProfileSkeleton";
 import { PostCardSkeleton } from "../components/PostCardSkeleton";
 import { FaGithub, FaGlobe, FaTwitter } from "react-icons/fa";
-
-interface AuthorProfile {
-  name: string;
-  username: string;
-  profile_image: string;
-  summary: string;
-  github_username?: string;
-  twitter_username?: string;
-  website_url?: string;
-}
+import { withFeaturedBadge } from "../hoc/WithFeaturedBadge";
 
 const AuthorDetails = () => {
   const { username } = useParams<{ username: string }>();
   const [posts, setPosts] = useState<Post[]>([]);
   const [author, setAuthor] = useState<AuthorProfile | null>(null);
   const [loading, setLoading] = useState(true);
+  const [trendingOnly, setTrendingOnly] = useState(false);
+
+  const EnhancedPostCard = withFeaturedBadge(PostCard);
+
+  const hasTrendingPosts = posts.some(
+    (post) => (post.positive_reactions_count ?? 0) > 50
+  );
 
   useEffect(() => {
     if (!username) return;
@@ -107,21 +105,51 @@ const AuthorDetails = () => {
                   rel="noopener noreferrer"
                   className=""
                 >
-                  <FaGlobe/>
+                  <FaGlobe />
                 </a>
               )}
             </div>
           </div>
 
           {/* Articles */}
-          <h3 className="text-2xl font-bold mb-4">Articles by {author.name}</h3>
+          <div className="flex justify-between py-8">
+            <h3 className="text-2xl font-bold mb-4">
+              Articles by {author.name}
+            </h3>
+            {hasTrendingPosts ? (
+              <div className="flex items-center gap-2">
+                <span className="text-sm font-medium text-gray-700">
+                  Trending Only
+                </span>
+
+                <label className="relative inline-block w-12 h-6 cursor-pointer">
+                  <input
+                    type="checkbox"
+                    className="sr-only peer"
+                    checked={trendingOnly}
+                    onChange={() => setTrendingOnly(!trendingOnly)}
+                  />
+                  <div className="bg-gray-300 peer-checked:bg-blue-600 w-full h-full rounded-full transition-colors duration-300"></div>
+                  <div className="absolute top-0.5 left-0.5 w-5 h-5 bg-white rounded-full shadow transform transition-transform duration-300 peer-checked:translate-x-6" />
+                </label>
+              </div>
+            ) : (
+              ""
+            )}
+          </div>
+
           {posts.length === 0 ? (
             <p className="text-gray-600">No articles available.</p>
           ) : (
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-              {posts.map((post) => (
-                <PostCard key={post.id} {...post} />
-              ))}
+              {posts
+                .filter(
+                  (post) =>
+                    !trendingOnly || (post.positive_reactions_count ?? 0) > 50
+                )
+                .map((post) => (
+                  <EnhancedPostCard key={post.id} {...post} />
+                ))}
             </div>
           )}
         </>

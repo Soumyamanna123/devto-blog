@@ -1,5 +1,5 @@
 export interface Post {
-  id: number;
+  id: number | string;
   title: string;
   description: string;
   published_at: string;
@@ -15,6 +15,7 @@ export interface Post {
     profile_image: string;
     username: string
   };
+  slug: string
 }
 
 export interface Author {
@@ -22,4 +23,13 @@ export interface Author {
   username: string;
   profile_image: string;
   
+}
+export interface AuthorProfile {
+  name: string;
+  username: string;
+  profile_image: string;
+  summary: string;
+  github_username?: string;
+  twitter_username?: string;
+  website_url?: string;
 }

@@ -3,7 +3,7 @@ import Feeds from "../components/Feed";
 import MaxWidthWrapper from "../components/MaxWidthWrapper";
 import MostPopular from "../components/MostPopular";
 import MostRecentPost from "../components/MostRecentPost";
-
+import TagList from "../components/TagList";
 
 const Home = () => {
   return (
@@ -17,7 +17,7 @@ const Home = () => {
             <MostPopular />
           </div>
         </div>
-
+        <TagList />
         <Feeds />
       </div>
     </MaxWidthWrapper>

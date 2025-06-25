@@ -1,7 +1,8 @@
 import { Link } from "react-router-dom";
 import type { Post } from "../types/post";
+import React from "react";
 
-export function PostCard({
+function Component({
   id,
   title,
   description,
@@ -10,8 +11,9 @@ export function PostCard({
   user,
   published_at,
 }: Post) {
+ 
   return (
-    <div className="bg-white border flex flex-col justify-between p-4 rounded-xl transition-all overflow-hidden">
+    <div className="bg-white border flex flex-col h-[550px] justify-between p-4 rounded-xl transition-all overflow-hidden">
       <div>
         <img
           src={
@@ -58,3 +60,7 @@ export function PostCard({
     </div>
   );
 }
+
+export const PostCard = React.memo(Component);
+
+ 
