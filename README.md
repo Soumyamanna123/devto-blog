@@ -1,58 +1,131 @@
-<<<<<<< HEAD
-# React + TypeScript + Vite
+# 📰 DEV.to Blog 
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A responsive blog web application that fetches and displays articles from the [DEV.to](https://dev.to) API. Features infinite scrolling, author pages, article details, trending post badges, and more.
 
-Currently, two official plugins are available:
+## 🚀 Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- 🔄 Infinite Scroll for seamless post loading
+- 🧠 HOC-based 🔥 Trending Badge for popular posts
+- 📄 Individual article detail pages
+- 👤 Author profile pages with their articles
+- 🎯 Search functionality (with UI ready)
+- 💅 Tailwind CSS for responsive and modern styling
+- ⚛️ Built with React + TypeScript + React Router
 
-## Expanding the ESLint configuration
+---
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+## 📦 Installation
 
-```js
-export default tseslint.config({
-  extends: [
-    // Remove ...tseslint.configs.recommended and replace with this
-    ...tseslint.configs.recommendedTypeChecked,
-    // Alternatively, use this for stricter rules
-    ...tseslint.configs.strictTypeChecked,
-    // Optionally, add this for stylistic rules
-    ...tseslint.configs.stylisticTypeChecked,
-  ],
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
+1. **Clone the repository**
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+   ```bash
+   git clone https://github.com/Soumyamanna123/devto-blog.git
+   cd devto-blog
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
 
-export default tseslint.config({
-  plugins: {
-    // Add the react-x and react-dom plugins
-    'react-x': reactX,
-    'react-dom': reactDom,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended typescript rules
-    ...reactX.configs['recommended-typescript'].rules,
-    ...reactDom.configs.recommended.rules,
-  },
-})
-```
-=======
-# devto-blog
->>>>>>> 5ed646b5dc8ab677310c8dae645eb4bbea30ced0
+2. **Install dependencies**
+
+   ```bash
+   npm install   
+
+3. **Start the development server**
+
+   ```bash
+   npm run dev
+
+4. **Open the app in your browser**
+
+   ```bash
+   http://localhost:5173
+   
+## 🛠️ Libraries Used
+
+- **React** – Frontend framework for building UI components  
+- **React Router DOM** – Enables client-side routing and dynamic URLs  
+- **TypeScript** – Provides static typing for safer and more scalable code  
+- **Tailwind CSS** – Utility-first CSS framework for responsive and modern UI styling  
+- **DEV.to Public API** – Used to fetch articles, author details, and related data  
+
+
+## 📁 Project Structure
+        
+    devto-blog/
+    │
+    ├── index.html
+    ├── package.json
+    ├── postcss.config.js
+    ├── tailwind.config.js
+    ├── tsconfig.json
+    ├── vite.config.ts
+    │
+    ├── src/
+    │   ├── index.css
+    │   ├── main.tsx
+    │   │
+    │   ├── types/
+    │   │   └── post.ts         # TypeScript types/interfaces for posts
+    │   │
+    │   ├── lib/
+    │   │   └── devto.ts        # API functions (e.g., fetchPosts, fetchPostById)
+    │   │
+    │   ├── hooks/
+    │   │   ├── usePosts.ts
+    │   │   ├── useInfinitePosts.ts
+    │   │   └── useMostPopularPost.ts
+    │   │
+    │   ├── hoc/
+    │   │   └── WithFeaturedBadge.tsx
+    │   │
+    │   ├── components/
+    │   │   ├── Feed.tsx
+    │   │   ├── MaxWidthWrapper.tsx
+    │   │   ├── MostPopular.tsx
+    │   │   └── MostRecentPost.tsx
+    │   │
+    │   └── pages/
+    │       ├── Home.tsx
+    │       ├── ArticleDetails.tsx
+    │       └── (other page components)
+    │
+    └── public/
+        └── (static assets, if any)
+
+
+## 🔥 Trending Badge Feature
+
+Highlight popular posts with a custom badge using a reusable **Higher Order Component (HOC)**.
+
+- **Adds a 🔥 Trending badge** to posts with more than **50 positive reactions**
+- **Uses Tailwind CSS** for smooth animation and styling
+- **Keeps `PostCard` component reusable** without modifying it directly
+- **Encapsulated logic** — easy to apply to other components or conditions
+
+### ✅ Usage
+
+      ```tsx
+      import { PostCard } from "./components/PostCard";
+      import { withFeaturedBadge } from "./hoc/withFeaturedBadge";
+      
+      const EnhancedPostCard = withFeaturedBadge(PostCard);
+      
+      // In JSX
+      <EnhancedPostCard {...post} />
+
+## 📄 Author Details Page
+
+Displays an author's profile and their articles using the DEV.to API.
+
+### 🔹 Features
+
+- **Author Info**: Shows profile image, name, summary, and social links (GitHub, Twitter, Website).
+- **Articles List**: Lists all posts by the author using the reusable `PostCard` component.
+- **🔥 Trending Filter**:
+  - Toggle to show only trending posts (positive reactions > 50).
+  - Toggle appears only if trending posts are available.
+- **Reusable HOC**: Utilizes `withFeaturedBadge` to highlight trending articles with a 🔥 badge.
+- **Skeleton UI**: Displays loading skeletons for both profile and posts while fetching.
+- **Responsive Design**: Built with Tailwind CSS to support all device sizes.
+
+      
+
+
