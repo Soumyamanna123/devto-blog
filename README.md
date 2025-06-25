@@ -91,6 +91,53 @@ A responsive blog web application that fetches and displays articles from the [D
         └── (static assets, if any)
 
 
+## 🧭 Pages & Components Overview
+
+### 🏠 Home (`/`)
+- Displays the **most recent** and **most popular** posts.
+- Includes a **tag list** to filter posts by topic.
+- Uses components: `MostRecentPost`, `MostPopular`, `TagList`, `Feeds`.
+
+### 📝 Article Details (`/article/:id`)
+- Shows full article content with:
+  - Author info
+  - Date, reading time
+  - Related tags
+- Fetches article data dynamically by ID.
+
+### 👤 Author Details (`/user/:username`)
+- Displays author's:
+  - Avatar, name, bio
+  - All their published articles
+- Includes a toggle to filter and show only **🔥 Trending** articles (posts with more than 50 positive reactions).
+
+### 🧭 Navbar
+- Sticky header across all pages.
+- Contains:
+  - Site logo
+  - Search input for articles
+- Fully responsive for desktop and mobile views.
+
+### 🏷️ TagList
+- Lets users **select tags** to filter the article feed.
+- Supports **multi-select** with highlight states.
+- "Show More" / "Show Less" toggle to expand or collapse the tag list.
+
+### 🆕 MostRecentPost
+- Carousel slider of the latest posts.
+- Optimized UX for both mobile and desktop.
+
+### 🔥 MostPopular
+- Displays top trending post(s) based on positive reactions.
+- Utilizes a reusable `WithFeaturedBadge` HOC to add a **"🔥 Trending"** badge dynamically.
+
+### 📄 Feeds
+- Renders article feed grid with **infinite scrolling**.
+- Includes shimmer loading UI and supports tag-based filtering.
+
+        
+
+
 ## 🔥 Trending Badge Feature
 
 Highlight popular posts with a custom badge using a reusable **Higher Order Component (HOC)**.
