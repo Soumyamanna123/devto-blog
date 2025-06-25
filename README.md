@@ -102,11 +102,30 @@ Highlight popular posts with a custom badge using a reusable **Higher Order Comp
 
 ### ✅ Usage
 
-```tsx
-import { PostCard } from "./components/PostCard";
-import { withFeaturedBadge } from "./hoc/withFeaturedBadge";
+      ```tsx
+      import { PostCard } from "./components/PostCard";
+      import { withFeaturedBadge } from "./hoc/withFeaturedBadge";
+      
+      const EnhancedPostCard = withFeaturedBadge(PostCard);
+      
+      // In JSX
+      <EnhancedPostCard {...post} />
 
-const EnhancedPostCard = withFeaturedBadge(PostCard);
+## 📄 Author Details Page
 
-// In JSX
-<EnhancedPostCard {...post} />
+Displays an author's profile and their articles using the DEV.to API.
+
+### 🔹 Features
+
+- **Author Info**: Shows profile image, name, summary, and social links (GitHub, Twitter, Website).
+- **Articles List**: Lists all posts by the author using the reusable `PostCard` component.
+- **🔥 Trending Filter**:
+  - Toggle to show only trending posts (positive reactions > 50).
+  - Toggle appears only if trending posts are available.
+- **Reusable HOC**: Utilizes `withFeaturedBadge` to highlight trending articles with a 🔥 badge.
+- **Skeleton UI**: Displays loading skeletons for both profile and posts while fetching.
+- **Responsive Design**: Built with Tailwind CSS to support all device sizes.
+
+      
+
+
