@@ -13,6 +13,7 @@ import { AuthorProfileSkeleton } from "../components/AuthorProfileSkeleton";
 import { PostCardSkeleton } from "../components/PostCardSkeleton";
 import { FaGithub, FaGlobe, FaTwitter } from "react-icons/fa";
 import { withFeaturedBadge } from "../hoc/WithFeaturedBadge";
+import { BiAward } from "react-icons/bi";
 
 const AuthorDetails = () => {
   const { username } = useParams<{ username: string }>();
@@ -72,12 +73,18 @@ const AuthorDetails = () => {
             />
             <div className="flex flex-col  space-x-4 items-center justify-center max-w-2xl text-center">
               {/* Show "Golden author" if the author has more than 10 trending posts */}
-              {posts.filter((post) => (post.positive_reactions_count ?? 0) > 50).length > 10 ? (
-                <div title="Golden author" className="flex items-center justify-center text-yellow-500 text-2xl">
-                  <i className="fa fa-star " aria-label="Golden author"></i>
+              {posts.filter((post) => (post.positive_reactions_count ?? 0) > 50)
+                .length > 10 ? (
+                <div
+                  title="Golden author"
+                  className="flex items-center justify-center text-yellow-500 text-2xl"
+                >
+                  <BiAward />
                 </div>
-              ) : ""}
-              
+              ) : (
+                ""
+              )}
+
               <h2 className="text-2xl font-semibold">{author.name}</h2>
               <p className="text-sm text-gray-500">@{author.username}</p>
               {author.summary && (

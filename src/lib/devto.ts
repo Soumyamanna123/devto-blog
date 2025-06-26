@@ -35,8 +35,8 @@ export const fetchrecentPosts = async (limit = 0) => {
  * @param limit - Number of top posts to fetch (default is 10)
  * @returns A list of popular articles
  */
-export const fetchMostViewedPosts = async (limit = 10) => {
-  const res = await fetch(`${BASE_URL}/articles?per_page=${limit}&top=35`);
+export const fetchMostViewedPosts = async (limit = 10, days = 7) => {
+  const res = await fetch(`${BASE_URL}/articles?per_page=${limit}&top=${days}`);
   if (!res.ok) throw new Error("Failed to fetch most viewed posts");
   return res.json();
 };
