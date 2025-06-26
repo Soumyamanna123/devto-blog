@@ -5,7 +5,11 @@ import MostPopular from "../components/MostPopular";
 import MostRecentPost from "../components/MostRecentPost";
 import TagList from "../components/TagList";
 
+import React, { useState } from "react";
+
 const Home = () => {
+  const [selectedTags, setSelectedTags] = useState<string[]>([]);
+
   return (
     <MaxWidthWrapper>
       <div className="py-20">
@@ -17,8 +21,8 @@ const Home = () => {
             <MostPopular />
           </div>
         </div>
-        <TagList />
-        <Feeds />
+        <TagList selectedTags={selectedTags} setSelectedTags={setSelectedTags} />
+        <Feeds selectedTags={selectedTags} />
       </div>
     </MaxWidthWrapper>
   );

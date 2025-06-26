@@ -1,15 +1,26 @@
+// TagList.tsx
+// This component fetches and displays a list of tags from the DEV.to API.
+// Users can select/deselect tags to filter posts by their interests.
+// The component supports showing more or fewer tags with "Show More"/"Show Less" buttons.
+// Selected tags are visually highlighted. Skeleton loaders are shown while loading.
+// All tag selection state is managed locally.
+
+
 import React, { useEffect, useState } from "react";
 
 import { fetchtag } from "../lib/devto";
 
-const TagList = () => {
-  const [tags, setTags] = useState<string[]>([]);
+type TagListProps = {
+  selectedTags: string[];
+  setSelectedTags: React.Dispatch<React.SetStateAction<string[]>>;
+};
 
+const TagList = ({ selectedTags, setSelectedTags }: TagListProps) => {
+  const [tags, setTags] = useState<string[]>([]);
   const [loading, setLoading] = useState(true);
   const [visibleCount, setvisibleCount] = useState(10);
 
-  const [SelectedTags, setSelectedTags] = useState([]);
-
+//
   useEffect(() => {
     fetchtag()
       .then((data) => {
@@ -19,6 +30,7 @@ const TagList = () => {
       .catch(console.error)
       .finally(() => setLoading(false));
   }, []);
+
 
   function toggleTag(tag: string) {
     setSelectedTags(function (prevSelected) {
@@ -32,12 +44,17 @@ const TagList = () => {
     });
   }
 
+  // function to increase tag number
   const showvisiblecout = () => {
     setvisibleCount((prev) => Math.min(prev + 10, tags.length));
   };
+  // function to decrease tag number
   const showlessvisiblecount = () => {
     setvisibleCount((prev) => Math.min(prev - 10, tags.length));
   };
+
+
+
   // console.log("dsdsd");
   return (
     <div className="my-16">
@@ -55,7 +72,7 @@ const TagList = () => {
       ) : (
         <div className="flex flex-wrap gap-2">
           {tags.slice(0, visibleCount).map((tag) => {
-            const isSelected = SelectedTags.includes(tag);
+            const isSelected = selectedTags.includes(tag);
             return (
               <span
                 key={tag}
