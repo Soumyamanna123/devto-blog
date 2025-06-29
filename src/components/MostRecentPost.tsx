@@ -45,7 +45,7 @@ const MostRecentPost = () => {
         {posts.map((post: any) => (
           <div key={post.id} className="">
             <Link to={`/article/${post.id}`}>
-              <div className="relative bg-white shadow rounded-xl overflow-hidden h-[30px] sm:h-[400px] lg:h-[420px] flex items-center justify-center">
+              <div className="relative bg-white shadow rounded-xl overflow-hidden h-[300px] sm:h-[400px]  lg:h-[420px] flex items-center justify-center">
                 {post.cover_image ? (
                   <>
                     <img
