@@ -4,7 +4,6 @@ import { useInfinitePosts } from "../hooks/useInfinitePosts";
 import { PostCardSkeleton } from "./PostCardSkeleton";
 import { withFeaturedBadge } from "../hoc/WithFeaturedBadge";
 
-
 // Feed.tsx
 // This component displays a grid of blog posts, supporting infinite scroll and tag-based filtering.
 // - Uses a custom hook (useInfinitePosts) to fetch posts and handle pagination as the user scrolls.
@@ -12,7 +11,6 @@ import { withFeaturedBadge } from "../hoc/WithFeaturedBadge";
 // - Filters posts based on selected tags passed as props.
 // - Shows skeleton loaders while loading new posts.
 // - Uses an IntersectionObserver to trigger loading more posts when the user scrolls to the bottom.
-
 
 const Feed = ({ selectedTags = [] }: { selectedTags?: string[] }) => {
   const { posts, loading, hasMore, loadMore } = useInfinitePosts();
@@ -40,14 +38,13 @@ const Feed = ({ selectedTags = [] }: { selectedTags?: string[] }) => {
     return () => {
       if (currentRef) observer.unobserve(currentRef);
     };
-  }, [hasMore, loadMore, loading]); // ✅ No need to add loadMore here
+  }, [hasMore, loadMore, loading]); 
 
-
-    const filteredPosts = selectedTags.length
-      ? posts.filter((post) =>
-          selectedTags.some((tag) => post.tag_list.includes(tag))
-        )
-      : posts;
+  const filteredPosts = selectedTags.length
+    ? posts.filter((post) =>
+        selectedTags.some((tag) => post.tag_list.includes(tag))
+      )
+    : posts;
 
   if (selectedTags.length && filteredPosts.length === 0) {
     return <div>Choose something else, can't find anything on this topic.</div>;
@@ -61,7 +58,10 @@ const Feed = ({ selectedTags = [] }: { selectedTags?: string[] }) => {
       {/* Posts Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mt-8">
         {filteredPosts.map((post, i) => (
-          <EnhancedPostCard key={`${post.id}.${post.slug}-${i}`} {...{ ...post, id: `${post.id}.${post.slug}-${i}` }} />
+          <EnhancedPostCard
+            key={`${post.id}.${post.slug}-${i}`}
+            {...{ ...post, id: `${post.id}.${post.slug}-${i}` }}
+          />
         ))}
 
         {/* Skeleton Loaders (appear inline) */}

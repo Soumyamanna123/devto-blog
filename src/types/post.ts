@@ -33,3 +33,10 @@ export interface AuthorProfile {
   twitter_username?: string;
   website_url?: string;
 }
+
+export interface FollowingAuthorCardProps  {
+  username: string;
+  name: string;
+  profileImage?: string;
+  summary?: string;
+};

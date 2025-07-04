@@ -14,10 +14,16 @@ import { PostCardSkeleton } from "../components/PostCardSkeleton";
 import { FaGithub, FaGlobe, FaTwitter } from "react-icons/fa";
 import { withFeaturedBadge } from "../hoc/WithFeaturedBadge";
 import { BiAward } from "react-icons/bi";
+import { useAuth } from "../context/useAuth";
+import { useNavigate } from "react-router-dom";
+import { useFollow } from "../context/FollowContext";
 
 const AuthorDetails = () => {
   const { username } = useParams<{ username: string }>();
   const [posts, setPosts] = useState<Post[]>([]);
+  const { user } = useAuth();
+  const { following, followAuthor, unfollowAuthor } = useFollow();
+
   const [author, setAuthor] = useState<AuthorProfile | null>(null);
   const [loading, setLoading] = useState(true);
   const [trendingOnly, setTrendingOnly] = useState(false);
@@ -27,6 +33,27 @@ const AuthorDetails = () => {
   const hasTrendingPosts = posts.some(
     (post) => (post.positive_reactions_count ?? 0) > 50
   );
+  const navigate = useNavigate();
+
+  const isFollowing = author ? following.some((a) => a.username === author.username) : false;
+  const handleFollow = () => {
+    if (!author) return;
+    if (!user) {
+      navigate("/login");
+      return;
+    }
+
+    if (isFollowing) {
+      unfollowAuthor(author.username);
+    } else {
+      followAuthor({
+        username: author.username,
+        name: author.name,
+        profileImage: author.profile_image,
+        summary: author.summary,
+      });
+    }
+  };
 
   useEffect(() => {
     if (!username) return;
@@ -122,6 +149,14 @@ const AuthorDetails = () => {
                   <FaGlobe />
                 </a>
               )}
+            </div>
+            <div>
+              <p
+                className="text-blue-800 cursor-pointer"
+                onClick={handleFollow}
+              >
+                {isFollowing ? "Following" : "Follow"}
+              </p>
             </div>
           </div>
 
