@@ -6,15 +6,21 @@ import { useNavigate } from "react-router-dom";
 import FollowingAuthorCard from "../components/FollwingAuthorCard";
 import { useFollow } from "../context/FollowContext";
 import toast from "react-hot-toast";
+import ReOrderAuthor from "../components/ReOrderAuthor";
 
 const Profile = () => {
   const { user, setUser } = useAuth();
+  const [showReorder, setShowReorder] = useState(false);
 
   const { following } = useFollow();
   const [avatar, setAvatar] = useState<string | null>(null);
   const [hovered, setHovered] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
   const navigate = useNavigate();
+
+  const handlereorder = () => {
+    setShowReorder((prev) => !prev);
+  };
 
   // Get first letter for avatar
   const firstLetter = user ? user.charAt(0).toUpperCase() : "?";
@@ -98,14 +104,24 @@ const Profile = () => {
         {/* Add more profile details or actions here */}
         <button
           onClick={handleLogout}
-          className="mt-4 px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600 transition"
+          className="mt-4 px-4 py-2 border border-red-500 text-red-500 rounded-full transition"
         >
           Logout
         </button>
         <div className="w-full mt-8">
-          <h3 className="text-xl font-semibold mb-4 text-gray-800">
-            Authors You Follow
-          </h3>
+          <div className="flex justify-between mb-4">
+            <h3 className="text-xl font-semibold mb-4 text-gray-800">
+              Authors You Follow
+            </h3>
+
+
+            <button
+              className="px-6 py-2 rounded-full border border-blue-600 text-blue-600 cursor-pointer"
+              onClick={handlereorder}
+            >
+              Reorder
+            </button>
+          </div>
 
           {following.length === 0 ? (
             <p className="text-gray-500 italic">
@@ -124,6 +140,9 @@ const Profile = () => {
                 />
               ))}
             </div>
+          )}
+          {showReorder && (
+            <ReOrderAuthor onClose={() => setShowReorder(false)} />
           )}
         </div>
       </div>
