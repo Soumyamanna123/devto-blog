@@ -3,15 +3,11 @@ import { Link, useParams } from "react-router-dom";
 import MaxWidthWrapper from "../components/MaxWidthWrapper";
 import { fetchPostById } from "../lib/devto";
 import type { Post } from "../types/post"; // adjust path if needed
-import { FaRegThumbsUp, FaRegCommentDots } from "react-icons/fa";
-
-
-
+import { FaRegThumbsUp, FaRegCommentDots, FaRegBookmark } from "react-icons/fa";
+import { useDispatch } from "react-redux";
+import { additems } from "../lib/bookmarkSlice";
 
 const ArticleDetails = () => {
-
-
-
   const { id } = useParams<{ id: string }>();
   const [post, setPost] = useState<Post | null>(null);
   const [loading, setLoading] = useState(true);
@@ -34,12 +30,22 @@ const ArticleDetails = () => {
     // eslint-disable-next-line
   }, [id]);
 
+  
+
+  const dispatch = useDispatch();
+
+  const handlebookmarkitem = () => {
+    dispatch(additems("bookmark"));
+    //  dispatch(additems(memoizedPost));
+  };
+
   const memoizedPost: Post | null = React.useMemo(() => post, [post]);
 
   // Optionally, you can use memoizedPost if you want to clean up on unmount
 
   if (loading) return <p className="text-center py-10">Loading...</p>;
-  if (!memoizedPost) return <p className="text-center py-10">Post not found.</p>;
+  if (!memoizedPost)
+    return <p className="text-center py-10">Post not found.</p>;
 
   return (
     <MaxWidthWrapper>
@@ -47,6 +53,18 @@ const ArticleDetails = () => {
         <h1 className="text-3xl lg:text-4xl font-bold mb-4  text-center">
           {memoizedPost.title}
         </h1>
+        {/* Bookmark Icon Placeholder */}
+        <button
+          className="flex justify-center py-4 text-gray-600 hover:text-black transition"
+          onClick={
+            // TODO: Dispatch bookmark toggle here
+
+            handlebookmarkitem
+          }
+          aria-label="Bookmark post"
+        >
+          <FaRegBookmark size={24} />
+        </button>
 
         <div className="flex flex-col space-x-2 items-center gap-1 mt-4 text-xs text-gray-500">
           <img
@@ -75,8 +93,11 @@ const ArticleDetails = () => {
         {/* Optional: show tags, full content, etc. */}
         <div className="flex justify-between">
           <p>
-           Posted at:{" "}
-            <span> {new Date(memoizedPost.published_at).toLocaleDateString()}</span>
+            Posted at:{" "}
+            <span>
+              {" "}
+              {new Date(memoizedPost.published_at).toLocaleDateString()}
+            </span>
           </p>
 
           <div className="flex items-center gap-4 text-sm text-gray-500">

@@ -12,7 +12,7 @@ const Home = () => {
 
   return (
     <MaxWidthWrapper>
-      <div className="py-20">
+      <div className="py-2">
         <div className="flex flex-col md:flex-row gap-4">
           <div className="w-full md:w-2/3">
             <MostRecentPost />
