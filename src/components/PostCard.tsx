@@ -11,7 +11,6 @@ function Component({
   user,
   published_at,
 }: Post) {
- 
   return (
     <div className="bg-white border flex flex-col h-[550px] justify-between p-4 rounded-xl transition-all overflow-hidden">
       <div>
@@ -27,24 +26,28 @@ function Component({
           <p className="text-sm text-gray-600 mt-1">{description}</p>
 
           <div className="flex flex-wrap gap-2 mt-2">
-            {tag_list.map((tag) => (
-              <span
-                key={tag}
-                className="text-xs bg-gray-100 px-2 py-1 rounded text-gray-700"
-              >
-                #{tag}
-              </span>
-            ))}
+            {Array.isArray(tag_list) &&
+              tag_list.map((tag) => (
+                <span
+                  key={tag}
+                  className="text-xs bg-gray-100 px-2 py-1 rounded text-gray-700"
+                >
+                  #{tag}
+                </span>
+              ))}
           </div>
 
           <div className="flex items-center gap-2 mt-4 text-xs text-gray-500">
             <img
-              src={user.profile_image}
-              alt={user.name}
+              src={user?.profile_image || "https://via.placeholder.com/24"}
+              alt={user?.name || "Unknown User"}
               className="w-6 h-6 rounded-full"
             />
             <span>
-              {user.name} • {new Date(published_at).toLocaleDateString()}
+              {user?.name || "Unknown User"} •{" "}
+              {published_at
+                ? new Date(published_at).toLocaleDateString()
+                : "Unknown Date"}
             </span>
           </div>
         </div>
@@ -62,5 +65,3 @@ function Component({
 }
 
 export const PostCard = React.memo(Component);
-
- 

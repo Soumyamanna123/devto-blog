@@ -30,13 +30,11 @@ const ArticleDetails = () => {
     // eslint-disable-next-line
   }, [id]);
 
-  
-
   const dispatch = useDispatch();
 
-  const handlebookmarkitem = () => {
-    dispatch(additems("bookmark"));
-    //  dispatch(additems(memoizedPost));
+  const handleBookmarkItem = (post: Post) => {
+    dispatch(additems(post));
+    console.log("Bookmarked post:", post);
   };
 
   const memoizedPost: Post | null = React.useMemo(() => post, [post]);
@@ -56,11 +54,12 @@ const ArticleDetails = () => {
         {/* Bookmark Icon Placeholder */}
         <button
           className="flex justify-center py-4 text-gray-600 hover:text-black transition"
-          onClick={
-            // TODO: Dispatch bookmark toggle here
+          // onClick={()=>
+          //   // TODO: Dispatch bookmark toggle here
 
-            handlebookmarkitem
-          }
+          //   handlebookmarkitem(item)
+          // }
+          onClick={() => handleBookmarkItem(memoizedPost)}
           aria-label="Bookmark post"
         >
           <FaRegBookmark size={24} />

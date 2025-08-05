@@ -6,6 +6,11 @@ const appStore = configureStore({
     bookmark: bookmarkReducer,
   },
 });
+
+
+// ✅ Add these type exports:
+export type RootState = ReturnType<typeof appStore.getState>;
+export type AppDispatch = typeof appStore.dispatch;
 export default appStore;
 
 //steps
