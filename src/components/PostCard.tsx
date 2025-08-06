@@ -12,14 +12,15 @@ function Component({
   published_at,
 }: Post) {
   return (
-    <div className="bg-white border flex flex-col h-[550px] justify-between p-4 rounded-xl transition-all overflow-hidden">
+    <Link to={`/article/${id}`}>
+    <div className="bg-white border border-black/15 flex flex-col min-h-[450px] justify-between p-4 rounded-xl transition-all overflow-hidden">
       <div>
         <img
           src={
             cover_image || "https://via.placeholder.com/800x400?text=No+Image"
           }
           alt={title}
-          className="w-full h-48 object-cover rounded-lg"
+          className="w-full h-56 object-cover rounded-lg"
         />
         <div className="py-4">
           <h2 className="text-xl font-semibold text-gray-900">{title}</h2>
@@ -53,14 +54,15 @@ function Component({
         </div>
       </div>
 
-      <div>
+      {/* <div>
         <Link to={`/article/${id}`}>
           <button className="rounded-full border w-full h-12 mt-4 cursor-pointer">
             Read More
           </button>
         </Link>
-      </div>
+      </div> */}
     </div>
+    </Link>
   );
 }
 

@@ -1,13 +1,14 @@
 import React from "react";
 import { useSelector } from "react-redux";
-
-import { PostCard } from "./PostCard";
-import { withFeaturedBadge } from "../hoc/WithFeaturedBadge";
+import BookmarkPostCard from "./BookmarkPostCard";
 
 const BookmarkedPosts = () => {
   const bookmarks = useSelector((store) => store.bookmark.items);
+
+//   const store = useSelector((store)=>store)
+//   const bookmarks = store.bookmmark.items
+
   console.log("bookmarks:", bookmarks);
-  const EnhancedPostCard = withFeaturedBadge(PostCard);
 
   return (
     <div className="w-full mt-10">
@@ -22,9 +23,9 @@ const BookmarkedPosts = () => {
           You haven't bookmarked any posts yet.
         </p>
       ) : (
-        <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4">
           {bookmarks.map((post: any) => (
-            <EnhancedPostCard key={post.id} post={post} />
+            <BookmarkPostCard key={post.id} post={post} />
           ))}
         </div>
       )}

@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import MaxWidthWrapper from "./MaxWidthWrapper";
+import MaxWidthWrapper from "../MaxWidthWrapper";
 import { FaBookmark, FaMoon, FaSearch, FaSun } from "react-icons/fa";
-import LoginDialog from "./LoginDialog";
-import { useAuth } from "../context/useAuth";
+import LoginDialog from "../LoginDialog";
+import { useAuth } from "../../context/useAuth";
 import { useSelector } from "react-redux";
-import { useTheme } from "../context/ThemeContext";
+import { useTheme } from "../../context/ThemeContext";
 
 const Navbar = () => {
   const [loginOpen, setLoginOpen] = useState(false);

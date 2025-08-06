@@ -40,7 +40,7 @@ const MostRecentPost = () => {
 
   return (
     <div className="my-10">
-      <h2 className="text-3xl font-bold mb-4">Most Recent Posts</h2>
+      <h2 className="text-3xl font-dm font-bold mb-4">Most Recent Posts</h2>
       <Slider {...settings}>
         {posts.map((post: any) => (
           <div key={post.id} className="">
@@ -80,4 +80,4 @@ const MostRecentPost = () => {
   );
 };
 
-export default React.memo(MostRecentPost) 
+export default React.memo(MostRecentPost);
